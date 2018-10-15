@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CollapsibleCalendarView</string>
+    <string name="monday">SEG</string>
+    <string name="tuesday">TER</string>
+    <string name="wednesday">QUA</string>
+    <string name="thursday">QUI</string>
+    <string name="friday">SEX</string>
+    <string name="saturday">SAB</string>
+    <string name="sunday">DOM</string>
+</resources>

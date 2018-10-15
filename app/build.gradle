@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.github.cleberpublitz.collapsiblecalendarview"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     dexOptions {
@@ -35,4 +36,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
     implementation project(':collapsiblecalendarview2')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
