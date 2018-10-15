@@ -1,7 +1,6 @@
 package com.github.cleberpublitz.collapsiblecalendarview;
 
 import android.graphics.Color;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,6 +8,12 @@ import com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalend
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setElevation(0);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.google_red));
+        Objects.requireNonNull(getSupportActionBar()).setElevation(0);
+        if (SDK_INT >= LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.google_red));
+        }
 
         CollapsibleCalendar collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         Calendar today=new GregorianCalendar();

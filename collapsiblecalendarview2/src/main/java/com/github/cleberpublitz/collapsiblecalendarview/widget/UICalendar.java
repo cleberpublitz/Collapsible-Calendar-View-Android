@@ -1,16 +1,13 @@
 package com.github.cleberpublitz.collapsiblecalendarview.widget;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,7 +16,6 @@ import android.widget.TextView;
 
 import com.github.cleberpublitz.collapsiblecalendarview.R;
 import com.github.cleberpublitz.collapsiblecalendarview.data.Day;
-import com.github.cleberpublitz.collapsiblecalendarview.listener.OnSwipeTouchListener;
 import com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView;
 import com.github.cleberpublitz.collapsiblecalendarview.view.LockScrollView;
 
