@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shrikanthravi.collapsiblecalendarview.MainActivity">
-    <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+    tools:context="com.github.cleberpublitz.collapsiblecalendarview.MainActivity">
+    <com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:primaryColor="@color/google_red"
@@ -20,5 +20,5 @@
         app:expandIconColor="@android:color/white"
         app:eventColor="@android:color/white"
         app:eventDotSize="small"
-        ></com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+        ></com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar>
 </RelativeLayout>

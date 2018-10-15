@@ -26,7 +26,7 @@
 	Add the dependency in your app build.gradle
 	```gradle
 	dependencies {
-			implementation 'com.github.shrikanth7698:Collapsible-Calendar-View-Android:v1.0.1'
+			implementation 'com.github.cleberpublitz:Collapsible-Calendar-View-Android:v1.0.2'
 		}
 	```
 
@@ -47,7 +47,7 @@
 	<dependency>
 	    <groupId>com.github.cleberpublitz</groupId>
 	    <artifactId>Collapsible-Calendar-View-Android</artifactId>
-	    <version>v1.0.1</version>
+	    <version>v1.0.2</version>
 	</dependency>
 	```
 
@@ -57,11 +57,11 @@
 
 Drop the Collapsible CalendarView in your XML layout as is shown below:
 ```xml
-    <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+    <com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:id="@+id/calendarView">
-    </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+    </com.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar>
 ```
 
 And then in your Activity or fragment
@@ -101,7 +101,7 @@ final CollapsibleCalendar collapsibleCalendar = findViewById(R.id.calendarView);
 
 
 ```xml
-           <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+           <com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:primaryColor="@color/google_red"
@@ -113,7 +113,7 @@ final CollapsibleCalendar collapsibleCalendar = findViewById(R.id.calendarView);
                 app:buttonLeft_drawableTintColor="@android:color/white"
                 app:buttonRight_drawableTintColor="@android:color/white"
                 app:expandIconColor="@android:color/white">
-          </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+          </com.github.cleberpublitz.collapsiblecalendarview.widget.CollapsibleCalendar>
 ```
 
 
