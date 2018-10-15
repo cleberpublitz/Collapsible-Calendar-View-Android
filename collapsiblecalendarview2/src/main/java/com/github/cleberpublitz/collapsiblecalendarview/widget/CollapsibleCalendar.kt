@@ -25,8 +25,8 @@ import com.github.cleberpublitz.collapsiblecalendarview.data.CalendarAdapter
 import com.github.cleberpublitz.collapsiblecalendarview.data.Day
 import com.github.cleberpublitz.collapsiblecalendarview.data.Event
 import com.github.cleberpublitz.collapsiblecalendarview.listener.OnSwipeTouchListener
-import com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView.LESS
-import com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView.MORE
+import com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView.Companion.LESS
+import com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView.Companion.MORE
 import java.text.SimpleDateFormat
 import java.util.Calendar.*
 import java.util.Locale.getDefault
@@ -490,7 +490,7 @@ class CollapsibleCalendar : UICalendar {
     }
 
     override fun setState(state: Int) {
-        super.setState(state)
+        super.state = state
         if (state == STATE_COLLAPSED) {
             expanded = false
         }
@@ -510,7 +510,7 @@ class CollapsibleCalendar : UICalendar {
     fun setStateWithUpdateUI(state: Int) {
         setState(state)
 
-        if (getState() != state) {
+        if (state != state) {
             mIsWaitingForUpdate = true
             requestLayout()
         }
