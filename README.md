@@ -26,7 +26,7 @@
 	Add the dependency in your app build.gradle
 	```gradle
 	dependencies {
-			implementation 'com.github.cleberpublitz:Collapsible-Calendar-View-Android:v1.0.3'
+			implementation 'com.github.cleberpublitz:Collapsible-Calendar-View-Android:v1.0.4'
 		}
 	```
 
@@ -47,7 +47,7 @@
 	<dependency>
 	    <groupId>com.github.cleberpublitz</groupId>
 	    <artifactId>Collapsible-Calendar-View-Android</artifactId>
-	    <version>v1.0.3</version>
+	    <version>v1.0.4</version>
 	</dependency>
 	```
 
