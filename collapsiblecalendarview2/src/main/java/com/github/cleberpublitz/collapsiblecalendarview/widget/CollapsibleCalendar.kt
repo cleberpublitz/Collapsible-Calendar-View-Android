@@ -131,7 +131,7 @@ class CollapsibleCalendar : UICalendar {
             for (i in 0 until mAdapter!!.count) {
                 val day = mAdapter!!.getItem(i)
 
-                if (isToady(day)) {
+                if (isToday(day)) {
                     position = i
                     break
                 }
@@ -210,7 +210,7 @@ class CollapsibleCalendar : UICalendar {
                 txtDay.setTextColor(textColor)
 
                 // set today's item
-                if (isToady(day)) {
+                if (isToday(day)) {
                     txtDay.setBackgroundDrawable(todayItemBackgroundDrawable)
                     txtDay.setTextColor(todayItemTextColor)
                 }
@@ -372,7 +372,7 @@ class CollapsibleCalendar : UICalendar {
                 && day.day == selectedItem.day)
     }
 
-    fun isToady(day: Day?): Boolean {
+    fun isToday(day: Day?): Boolean {
         val todayCal = getInstance()
         return (day != null
                 && day.year == todayCal.get(YEAR)
