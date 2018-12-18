@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">CollapsibleCalendarView</string>
-
     <string name="monday">MON</string>
     <string name="tuesday">TUE</string>
     <string name="wednesday">WED</string>
