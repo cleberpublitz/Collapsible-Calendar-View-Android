@@ -16,7 +16,7 @@ import java.util.Calendar.*
  * Created by shrikanthravi on 06/03/18.
  */
 
-class CalendarAdapter(context: Context, cal: Calendar) {
+open class CalendarAdapter(context: Context, cal: Calendar) {
     private var mFirstDayOfWeek = 0
     val calendar: Calendar = cal.clone() as Calendar
     private val mInflater: LayoutInflater
@@ -55,6 +55,33 @@ class CalendarAdapter(context: Context, cal: Calendar) {
 
     fun addEvent(event: Event) {
         mEventList.add(event)
+    }
+
+    open fun onCreateView(day: Day): View {
+        val view: View = if (mEventDotSize == EVENT_DOT_SMALL)
+            mInflater.inflate(R.layout.day_layout_small, null)
+        else
+            mInflater.inflate(R.layout.day_layout, null)
+
+        val txtDay = view.findViewById<View>(R.id.txt_day) as TextView
+        val imgEventTag = view.findViewById<View>(R.id.img_event_tag) as ImageView
+
+        txtDay.text = day.day.toString()
+        if (day.month != calendar.get(MONTH)) {
+            txtDay.alpha = 0.3f
+        }
+
+        for (j in mEventList.indices) {
+            val event = mEventList[j]
+            if (day.year == event.year
+                    && day.month == event.month
+                    && day.day == event.day) {
+                imgEventTag.visibility = View.VISIBLE
+                imgEventTag.setColorFilter(event.color, PorterDuff.Mode.SRC_ATOP)
+            }
+        }
+
+        return view
     }
 
     fun refresh() {
@@ -111,31 +138,9 @@ class CalendarAdapter(context: Context, cal: Calendar) {
             }
 
             val day = Day(numYear, numMonth, numDay)
-            val view: View = if (mEventDotSize == EVENT_DOT_SMALL)
-                mInflater.inflate(R.layout.day_layout_small, null)
-            else
-                mInflater.inflate(R.layout.day_layout, null)
-
-            val txtDay = view.findViewById<View>(R.id.txt_day) as TextView
-            val imgEventTag = view.findViewById<View>(R.id.img_event_tag) as ImageView
-
-            txtDay.text = day.day.toString()
-            if (day.month != calendar.get(MONTH)) {
-                txtDay.alpha = 0.3f
-            }
-
-            for (j in mEventList.indices) {
-                val event = mEventList[j]
-                if (day.year == event.year
-                        && day.month == event.month
-                        && day.day == event.day) {
-                    imgEventTag.visibility = View.VISIBLE
-                    imgEventTag.setColorFilter(event.color, PorterDuff.Mode.SRC_ATOP)
-                }
-            }
 
             mItemList.add(day)
-            mViewList.add(view)
+            mViewList.add(onCreateView(day))
         }
     }
 }
