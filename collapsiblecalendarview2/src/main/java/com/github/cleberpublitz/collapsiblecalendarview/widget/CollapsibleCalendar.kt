@@ -6,7 +6,6 @@ package com.github.cleberpublitz.collapsiblecalendarview.widget
 
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
 import android.os.Handler
@@ -49,7 +48,6 @@ class CollapsibleCalendar : UICalendar {
         get() = object : OnSwipeTouchListener(context) {
             override fun onSwipeTop() {
                 collapse(400)
-
             }
 
             override fun onSwipeLeft() {
@@ -70,7 +68,6 @@ class CollapsibleCalendar : UICalendar {
             override fun onSwipeBottom() {
                 expand(400)
             }
-
         }
 
     private val suitableRowIndex: Int
@@ -128,14 +125,14 @@ class CollapsibleCalendar : UICalendar {
     val todayItemPosition: Int
         get() {
             var position = -1
-            for (i in 0 until mAdapter!!.count) {
-                val day = mAdapter!!.getItem(i)
 
-                if (isToday(day)) {
+            mAdapter!!.forEachIndexed { i, _, day ->
+                if(isToday(day)) {
                     position = i
-                    break
+                    return@forEachIndexed
                 }
             }
+
             return position
         }
 
@@ -148,13 +145,10 @@ class CollapsibleCalendar : UICalendar {
     override fun init(context: Context) {
         super.init(context)
 
-
-        val size = eventDotSize
         val cal = getInstance()
         val adapter = CalendarAdapter(context, cal)
         adapter.setEventDotSize(eventDotSize)
         setAdapter(adapter)
-
 
         // bind events
         mLayoutRoot.setOnTouchListener(swipeTouchListener)
@@ -201,22 +195,15 @@ class CollapsibleCalendar : UICalendar {
             }
         }
         // redraw all views of day
-        if (mAdapter != null) {
-            for (i in 0 until mAdapter!!.count) {
-                val day = mAdapter!!.getItem(i)
-                val view = mAdapter!!.getView(i)
-                val txtDay = view.findViewById<TextView>(R.id.txt_day)
-                txtDay.setBackgroundColor(Color.TRANSPARENT)
-                txtDay.setTextColor(textColor)
-
-                // set today's item
-                if (isToday(day)) {
+        mAdapter?.forEach { v, d ->
+            mAdapter?.onRedrawView(v, textColor) { txtDay ->
+                if (isToday(d)) {
                     txtDay.setBackgroundDrawable(todayItemBackgroundDrawable)
                     txtDay.setTextColor(todayItemTextColor)
                 }
 
                 // set the selected item
-                if (isSelectedDay(day)) {
+                if (isSelectedDay(d)) {
                     txtDay.setBackgroundDrawable(selectedItemBackgroundDrawable)
                     txtDay.setTextColor(selectedItemTextColor)
                 }
@@ -262,11 +249,11 @@ class CollapsibleCalendar : UICalendar {
                     rowCurrent.layoutParams = TableLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
                     mTableBody.addView(rowCurrent)
                 }
-                val view = mAdapter!!.getView(i)
-                view.layoutParams = TableRow.LayoutParams(0, WRAP_CONTENT, 1f)
-                view.setOnTouchListener(swipeTouchListener)
-                view.setOnClickListener { v -> onItemClicked(v, mAdapter!!.getItem(i)) }
-                rowCurrent.addView(view)
+                mAdapter!!.setOnClickListener(i) { v, d -> onItemClicked(v, d) }
+                rowCurrent.addView(mAdapter!!.getView(i).apply {
+                    layoutParams = TableRow.LayoutParams(0, WRAP_CONTENT, 1f)
+                    setOnTouchListener(swipeTouchListener)
+                })
             }
 
             redraw()
