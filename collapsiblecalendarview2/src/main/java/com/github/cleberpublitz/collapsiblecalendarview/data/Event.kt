@@ -8,5 +8,6 @@ data class Event(
         val year: Int,
         val month: Int,
         val day: Int,
-        val color: Int = 0
+        val color: Int = 0,
+        val borderColor: Int? = null
 )
