@@ -57,11 +57,11 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
         mEventList.add(event)
     }
 
-    open fun onCreateView(day: Day, eventList: List<Event>, eventDotSize: Int): View {
+    open fun onCreateView(inflater: LayoutInflater, day: Day, eventList: List<Event>, eventDotSize: Int): View {
         val view: View = if (eventDotSize == EVENT_DOT_SMALL)
-            mInflater.inflate(R.layout.day_layout_small, null)
+            inflater.inflate(R.layout.day_layout_small, null)
         else
-            mInflater.inflate(R.layout.day_layout, null)
+            inflater.inflate(R.layout.day_layout, null)
 
         val txtDay = view.findViewById<View>(R.id.txt_day) as TextView
         val imgEventTag = view.findViewById<View>(R.id.img_event_tag) as ImageView
@@ -140,7 +140,7 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
             val day = Day(numYear, numMonth, numDay)
 
             mItemList.add(day)
-            mViewList.add(onCreateView(day, mEventList, mEventDotSize))
+            mViewList.add(onCreateView(mInflater, day, mEventList, mEventDotSize))
         }
     }
 }
