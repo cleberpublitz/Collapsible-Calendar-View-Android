@@ -127,7 +127,7 @@ class CollapsibleCalendar : UICalendar {
             var position = -1
 
             mAdapter!!.forEachIndexed { i, _, day ->
-                if(isToday(day)) {
+                if (isToday(day)) {
                     position = i
                     return@forEachIndexed
                 }
@@ -297,14 +297,9 @@ class CollapsibleCalendar : UICalendar {
         mCurrentWeekIndex = suitableRowIndex
     }
 
-    fun addEventTag(numYear: Int, numMonth: Int, numDay: Int) {
-        mAdapter!!.addEvent(Event(numYear, numMonth, numDay, eventColor))
-
-        reload()
-    }
-
-    fun addEventTag(numYear: Int, numMonth: Int, numDay: Int, color: Int) {
-        mAdapter!!.addEvent(Event(numYear, numMonth, numDay, color))
+    fun addEventTag(numYear: Int, numMonth: Int, numDay: Int, color: Int = eventColor,
+                    borderColor: Int? = null) {
+        mAdapter!!.addEvent(Event(numYear, numMonth, numDay, color, borderColor))
 
         reload()
     }
