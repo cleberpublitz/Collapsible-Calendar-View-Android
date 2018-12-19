@@ -4,12 +4,13 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion = '28.0.3'
     defaultConfig {
         applicationId "com.github.cleberpublitz.collapsiblecalendarview"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.5"
+        versionName "1.0.6"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,7 +27,6 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    buildToolsVersion = '28.0.3'
 }
 
 dependencies {

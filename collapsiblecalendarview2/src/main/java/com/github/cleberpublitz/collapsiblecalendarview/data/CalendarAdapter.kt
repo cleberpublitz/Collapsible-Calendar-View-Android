@@ -1,13 +1,16 @@
 package com.github.cleberpublitz.collapsiblecalendarview.data
 
 import android.content.Context
+import android.graphics.Color.TRANSPARENT
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import com.github.cleberpublitz.collapsiblecalendarview.R
-import com.github.cleberpublitz.collapsiblecalendarview.widget.UICalendar
+import com.github.cleberpublitz.collapsiblecalendarview.widget.UICalendar.EVENT_DOT_BIG
 import com.github.cleberpublitz.collapsiblecalendarview.widget.UICalendar.EVENT_DOT_SMALL
 import java.util.*
 import java.util.Calendar.*
@@ -20,7 +23,7 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
     private var mFirstDayOfWeek = 0
     val calendar: Calendar = cal.clone() as Calendar
     private val mInflater: LayoutInflater
-    private var mEventDotSize = UICalendar.EVENT_DOT_BIG
+    private var mEventDotSize = EVENT_DOT_BIG
 
     private var mItemList: MutableList<Day> = ArrayList()
     private var mViewList: MutableList<View> = ArrayList()
@@ -43,6 +46,12 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
 
     fun getView(position: Int): View {
         return mViewList[position]
+    }
+
+    fun forEach(action: (View, Day) -> Unit) = mViewList.forEachIndexed { i, v -> action(v, mItemList[i]) }
+
+    fun forEachIndexed(action: (index: Int, View, Day) -> Unit) {
+        mViewList.forEachIndexed { i, v -> action(i, v, mItemList[i]) }
     }
 
     fun setFirstDayOfWeek(firstDayOfWeek: Int) {
@@ -76,12 +85,28 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
             if (day.year == event.year
                     && day.month == event.month
                     && day.day == event.day) {
-                imgEventTag.visibility = View.VISIBLE
+                imgEventTag.visibility = VISIBLE
                 imgEventTag.setColorFilter(event.color, PorterDuff.Mode.SRC_ATOP)
             }
         }
 
         return view
+    }
+
+    open fun onRedrawView(view: View, @ColorInt textColorDefault: Int, applyConfigs: (TextView) -> Unit) {
+        val txtDay = view.findViewById<TextView>(R.id.txt_day)
+        txtDay.setBackgroundColor(TRANSPARENT)
+        txtDay.setTextColor(textColorDefault)
+
+        applyConfigs(txtDay)
+    }
+
+    open fun setOnClickListener(l: (View, Day) -> Unit) {
+        mViewList.forEachIndexed { i, v -> v.setOnClickListener { v1 -> l(v1, mItemList[i]) } }
+    }
+
+    internal fun setOnClickListener(position: Int, l: (View, Day) -> Unit) {
+        mViewList[position].setOnClickListener { v -> l(v, mItemList[position]) }
     }
 
     fun refresh() {
