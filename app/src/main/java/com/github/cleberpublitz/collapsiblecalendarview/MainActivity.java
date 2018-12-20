@@ -1,6 +1,5 @@
 package com.github.cleberpublitz.collapsiblecalendarview;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,8 +11,13 @@ import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static android.graphics.Color.BLUE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         CollapsibleCalendar collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         Calendar today=new GregorianCalendar();
-        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
-        today.add(Calendar.DATE,1);
-        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH),Color.BLUE);
+        collapsibleCalendar.addEventTag(today.get(YEAR),today.get(MONTH),today.get(DAY_OF_MONTH));
+        today.add(DATE,1);
+        collapsibleCalendar.addEventTag(today.get(YEAR),today.get(MONTH),today.get(DAY_OF_MONTH),BLUE);
 
         System.out.println("Testing date "+collapsibleCalendar.getSelectedDay().getDay()+"/"+collapsibleCalendar.getSelectedDay().getMonth()+"/"+collapsibleCalendar.getSelectedDay().getYear());
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {

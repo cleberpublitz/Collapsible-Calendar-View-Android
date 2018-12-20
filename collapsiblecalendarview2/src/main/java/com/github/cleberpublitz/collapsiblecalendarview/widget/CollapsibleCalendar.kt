@@ -297,10 +297,17 @@ class CollapsibleCalendar : UICalendar {
         mCurrentWeekIndex = suitableRowIndex
     }
 
+    fun addEventTag(numYear: Int, numMonth: Int, numDay: Int) {
+       addEventTag(numYear, numMonth, numDay, eventColor, null)
+    }
+
+    fun addEventTag(numYear: Int, numMonth: Int, numDay: Int, color: Int = eventColor) {
+       addEventTag(numYear, numMonth, numDay, color, null)
+    }
+
     fun addEventTag(numYear: Int, numMonth: Int, numDay: Int, color: Int = eventColor,
                     borderColor: Int? = null) {
         mAdapter!!.addEvent(Event(numYear, numMonth, numDay, color, borderColor))
-
         reload()
     }
 
