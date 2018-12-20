@@ -25,13 +25,12 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
     private val mInflater: LayoutInflater
     private var mEventDotSize = EVENT_DOT_BIG
 
-    private var mItemList: MutableList<Day> = ArrayList()
-    private var mViewList: MutableList<View> = ArrayList()
-    private var mEventList: MutableList<Event> = ArrayList()
+    private var mViewMap: MutableMap<Day, View> = mutableMapOf()
+    private var mEventMap: MutableMap<Day, MutableList<Event>> = mutableMapOf()
 
     // public methods
     val count: Int
-        get() = mItemList.size
+        get() = mViewMap.size
 
     init {
         this.calendar.set(DAY_OF_MONTH, 1)
@@ -40,18 +39,16 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
         refresh()
     }
 
-    fun getItem(position: Int): Day {
-        return mItemList[position]
-    }
+    fun getItem(position: Int): Day = mViewMap.keys.elementAt(position)
 
-    fun getView(position: Int): View {
-        return mViewList[position]
-    }
+    fun getView(position: Int): View = mViewMap.values.elementAt(position)
 
-    fun forEach(action: (View, Day) -> Unit) = mViewList.forEachIndexed { i, v -> action(v, mItemList[i]) }
+    fun forEach(action: (View, Day) -> Unit) {
+        for (m in mViewMap.iterator()) action(m.value, m.key)
+    }
 
     fun forEachIndexed(action: (index: Int, View, Day) -> Unit) {
-        mViewList.forEachIndexed { i, v -> action(i, v, mItemList[i]) }
+        mViewMap.entries.forEachIndexed { i, m -> action(i, m.value, m.key) }
     }
 
     fun setFirstDayOfWeek(firstDayOfWeek: Int) {
@@ -63,7 +60,11 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
     }
 
     fun addEvent(event: Event) {
-        mEventList.add(event)
+        val day = Day(event.year, event.month, event.day)
+        if (mEventMap.contains(day)) {
+            if(mEventMap[day]?.isEmpty() == true) mEventMap[day] = mutableListOf()
+        } else mEventMap[day] = mutableListOf()
+        mEventMap[day]?.add(event)
     }
 
     open fun onCreateView(inflater: LayoutInflater, day: Day, eventList: List<Event>, eventDotSize: Int): View {
@@ -102,17 +103,16 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
     }
 
     open fun setOnClickListener(l: (View, Day) -> Unit) {
-        mViewList.forEachIndexed { i, v -> v.setOnClickListener { v1 -> l(v1, mItemList[i]) } }
+        for( i in mViewMap.iterator()) { i.value.setOnClickListener { v -> l(v, i.key) } }
     }
 
     internal fun setOnClickListener(position: Int, l: (View, Day) -> Unit) {
-        mViewList[position].setOnClickListener { v -> l(v, mItemList[position]) }
+        mViewMap.values.elementAt(position).setOnClickListener { v -> l(v, mViewMap.keys.elementAt(position)) }
     }
 
     fun refresh() {
         // clear data
-        mItemList.clear()
-        mViewList.clear()
+        mViewMap.clear()
 
         // set calendar
         val year = calendar.get(YEAR)
@@ -163,9 +163,7 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
             }
 
             val day = Day(numYear, numMonth, numDay)
-
-            mItemList.add(day)
-            mViewList.add(onCreateView(mInflater, day, mEventList, mEventDotSize))
+            mViewMap[day] = onCreateView(mInflater, day, mEventMap[day] ?: listOf(), mEventDotSize)
         }
     }
 }
