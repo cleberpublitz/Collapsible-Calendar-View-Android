@@ -103,7 +103,7 @@ public abstract class UICalendar extends LinearLayout {
 
     protected abstract void redraw();
 
-    abstract void reload();
+    public abstract void reload();
 
     protected void init(Context context) {
         mContext = context;
