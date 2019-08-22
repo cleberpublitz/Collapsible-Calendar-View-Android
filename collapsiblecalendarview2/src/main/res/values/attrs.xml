@@ -53,8 +53,5 @@
         <attr name="buttonRight_drawableTintColor" format="color" />
 
         <attr name="expandIconColor" format="color" />
-
     </declare-styleable>
-
-
 </resources>

@@ -21,8 +21,6 @@ import com.github.cleberpublitz.collapsiblecalendarview.view.LockScrollView;
 
 
 public abstract class UICalendar extends LinearLayout {
-
-
     // Day of Week
     public static final int SUNDAY = 0;
     public static final int MONDAY = 1;
@@ -105,7 +103,7 @@ public abstract class UICalendar extends LinearLayout {
 
     protected abstract void redraw();
 
-    protected abstract void reload();
+    abstract void reload();
 
     protected void init(Context context) {
         mContext = context;
@@ -184,7 +182,6 @@ public abstract class UICalendar extends LinearLayout {
         setButtonLeftDrawableTintColor(attrs.getColor(R.styleable.UICalendar_buttonLeft_drawableTintColor, mButtonLeftDrawableTintColor));
         setButtonRightDrawableTintColor(attrs.getColor(R.styleable.UICalendar_buttonRight_drawableTintColor, mButtonRightDrawableTintColor));
         setExpandIconColor(attrs.getColor(R.styleable.UICalendar_expandIconColor, mExpandIconColor));
-        Day selectedItem = null;
     }
 
     public void setButtonLeftDrawableTintColor(int color) {

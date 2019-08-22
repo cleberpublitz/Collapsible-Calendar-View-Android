@@ -14,6 +14,7 @@ import com.github.cleberpublitz.collapsiblecalendarview.widget.UICalendar.EVENT_
 import com.github.cleberpublitz.collapsiblecalendarview.widget.UICalendar.EVENT_DOT_SMALL
 import java.util.*
 import java.util.Calendar.*
+import kotlin.math.ceil
 
 /**
  * Created by shrikanthravi on 06/03/18.
@@ -103,7 +104,9 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
     }
 
     open fun setOnClickListener(l: (View, Day) -> Unit) {
-        for( i in mViewMap.iterator()) { i.value.setOnClickListener { v -> l(v, i.key) } }
+        for( i in mViewMap.iterator()) {
+            i.value.setOnClickListener { v -> l(v, i.key) }
+        }
     }
 
     internal fun setOnClickListener(position: Int, l: (View, Day) -> Unit) {
@@ -125,7 +128,7 @@ open class CalendarAdapter(context: Context, cal: Calendar) {
 
         // generate day list
         val offset = 0 - (firstDayOfWeek - mFirstDayOfWeek) + 1
-        val length = Math.ceil(((lastDayOfMonth - offset + 1).toFloat() / 7).toDouble()).toInt() * 7
+        val length = ceil(((lastDayOfMonth - offset + 1).toFloat() / 7).toDouble()).toInt() * 7
         for (i in offset until length + offset) {
             val numYear: Int
             val numMonth: Int
