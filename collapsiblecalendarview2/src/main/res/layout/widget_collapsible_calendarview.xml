@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -70,16 +71,14 @@
             android:padding="8dp"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:text="Jun 2015" />
+            tools:text="Jun 2015" />
 
     </RelativeLayout>
 
     <TableLayout
         android:id="@+id/table_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-    </TableLayout>
+        android:layout_height="wrap_content" />
 
     <com.github.cleberpublitz.collapsiblecalendarview.view.LockScrollView
         android:id="@+id/scroll_view_body"
@@ -90,9 +89,7 @@
         <TableLayout
             android:id="@+id/table_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </TableLayout>
+            android:layout_height="wrap_content" />
 
     </com.github.cleberpublitz.collapsiblecalendarview.view.LockScrollView>
     <com.github.cleberpublitz.collapsiblecalendarview.view.ExpandIconView
